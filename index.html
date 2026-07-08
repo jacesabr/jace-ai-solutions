@@ -189,6 +189,18 @@ nav.scrolled{border-bottom-color:var(--border)}
 .card p{font-size:14.5px;color:var(--dim)}
 .card .ex{margin-top:14px;font-size:12.5px;color:var(--muted);font-family:'JetBrains Mono',monospace}
 
+/* ---------- flagship banner ---------- */
+.flag{
+  border:1px solid rgba(45,212,191,.3);border-radius:18px;padding:34px 36px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+  background:radial-gradient(420px 200px at 12% 0%,rgba(45,212,191,.12),transparent 70%),var(--surface);
+  margin-top:18px;
+}
+.flag .fk{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2dd4bf;margin-bottom:8px;display:block}
+.flag h3{font-size:20px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.flag p{color:var(--dim);font-size:14.5px;max-width:560px}
+.flag .btn{flex:none}
+
 /* ---------- who we help ---------- */
 #who{padding-top:0}
 .wh-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -513,6 +525,14 @@ footer{border-top:1px solid var(--border);padding:36px 0;background:var(--bg)}
         <p>Not sure where AI fits? We audit your operations, find the highest-ROI automation targets, pick the right models, handle compliance, and train the people who'll actually use it.</p>
         <div class="ex">model choice · deployment · compliance · training</div>
       </div>
+    </div>
+    <div class="flag rv">
+      <div>
+        <span class="fk">Flagship product</span>
+        <h3>Custom Browser Automation</h3>
+        <p>An intelligent agent that drives your software like a person — vision, mouse, keyboard. Phone calls, browser workflows, emails, any outreach. If a human can do it behind a computer, we can automate it.</p>
+      </div>
+      <a class="btn btn-grad" href="browser-automation/">Explore the product →</a>
     </div>
   </div>
 </section>
