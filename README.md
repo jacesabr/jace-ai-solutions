@@ -1,6 +1,12 @@
-# Jace AI Solutions — consulting site
+# Jace AI Solutions — custom browser automation site
 
-single-file static site (`index.html`) — no build step, no dependencies, deploy anywhere.
+single-file static site (`index.html`) — no build step, no dependencies.
+live: https://jace-ai-solutions.onrender.com (Render static site, auto-deploys on push to main).
+
+the site is the browser-automation product pitch ("the internet was made for humans, not
+scripts"), styled like Claude web: warm cream, terracotta accent, serif headings, dark
+terminal blocks. the earlier general consulting site lives in git history (last version at
+commit `eaf6e4b`) if it's ever wanted back.
 
 ## the whatsapp number
 
@@ -10,25 +16,16 @@ set in the CONFIG block at the top of the `<script>` at the bottom of `index.htm
 const WHATSAPP_NUMBER = "917973744625";
 ```
 
-to change it (e.g. to a +1 virtual number later): international format, digits only —
-country code + number, no `+`, no spaces, no dashes (e.g. Canada 604-555-1234 → `16045551234`).
-note: the number never appears on the page — visitors only see it after they open the chat.
+to change it: international format, digits only — country code + number, no `+`, no spaces,
+no dashes. the number never appears on the page — visitors only see it after they open the
+chat. it powers every green button, the floating bubble, and the contact form (which opens
+WhatsApp with the visitor's answers pre-filled — no backend, nothing stored).
 
-that single constant powers:
-- every "Chat on WhatsApp" button (nav, hero, CTA band, contact, footer)
-- the floating green bubble (bottom-right)
-- the contact form — on submit it opens WhatsApp with the visitor's answers
-  pre-filled as a message to you (no backend, nothing stored)
+## content honesty notes
 
-## deploy
-
-it's one static file — Render static site (`staticPublishPath: .`), GitHub Pages,
-or Vercel all work as-is. custom domain later via the host's dashboard.
-
-## content sources
-
-positioning, skills, and the Work section come from the resume site
-(`Desktop/resume/index.html`) — First Hello, Glow, My Personal Teacher,
-Simple Analysis, Morrigan, and the applied-ML case studies are all real
-shipped projects; stats in the hero strip are real numbers. no invented
-testimonials or client logos — add real ones as they come.
+- the "3 real end-to-end submissions" proof (SuccessFactors / Greenhouse / Workday) is from
+  the verified runs in `Desktop/test_e2b/design/project.md`.
+- the hotel-receptionist section is labeled **illustrative** — it is an offer example, not a
+  deployed system.
+- the hero "spots open" counter is seeded from the UTC date (1–5, same for all visitors on a
+  given day).
