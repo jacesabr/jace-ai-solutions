@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jace AI Solutions — AI Automation & Consulting for Business</title>
+<meta name="description" content="We help businesses put AI to work — automating repetitive operations, building custom AI agents and products, and cutting AI running costs. From first prototype to production.">
+<meta property="og:title" content="Jace AI Solutions — AI Automation & Consulting">
+<meta property="og:description" content="Automate work. Increase productivity. Ship AI that pays for itself. Chat with us on WhatsApp.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Jace AI Solutions — single-file consulting site
+   ============================================================ */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#050609;
+  --bg-2:#0a0c12;
+  --surface:rgba(255,255,255,.03);
+  --surface-2:rgba(255,255,255,.055);
+  --border:rgba(255,255,255,.09);
+  --border-hi:rgba(255,255,255,.18);
+  --text:#f2f4f8;
+  --dim:#9aa3b2;
+  --muted:#5d6572;
+  --accent:#7c6cff;        /* violet */
+  --accent-2:#3ecfff;      /* cyan */
+  --wa:#25d366;            /* WhatsApp green */
+  --wa-dark:#128c4a;
+  --radius:14px;
+  --max:1120px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:16px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+::selection{background:rgba(124,108,255,.35)}
+
+/* ---------- shared ---------- */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.grad-text{
+  background:linear-gradient(92deg,var(--accent) 0%,var(--accent-2) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent-2);margin-bottom:14px;
+}
+.kicker::before{content:"";width:22px;height:1px;background:var(--accent-2);opacity:.6}
+h2.sec-title{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-.03em;line-height:1.15;margin-bottom:14px}
+.sec-sub{color:var(--dim);max-width:640px;font-size:16.5px;margin-bottom:44px}
+section{padding:96px 0;position:relative}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:13px 26px;border-radius:10px;font-weight:600;font-size:15px;
+  border:1px solid transparent;cursor:pointer;transition:all .18s ease;
+  white-space:nowrap;
+}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-wa{background:var(--wa);color:#04140a;border-color:var(--wa)}
+.btn-wa:hover{background:#2ee879;transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,211,102,.28)}
+.btn-ghost{background:var(--surface);border-color:var(--border);color:var(--text)}
+.btn-ghost:hover{border-color:var(--border-hi);background:var(--surface-2);transform:translateY(-2px)}
+.btn-grad{background:linear-gradient(92deg,var(--accent),var(--accent-2));color:#0b0714}
+.btn-grad:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(124,108,255,.35)}
+
+/* reveal on scroll */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:rgba(5,6,9,.72);border-bottom:1px solid transparent;
+  transition:border-color .3s;
+}
+nav.scrolled{border-bottom-color:var(--border)}
+.nav-in{max-width:var(--max);margin:0 auto;padding:0 24px;height:66px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-weight:800;font-size:17px;letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+.logo .dot{
+  width:26px;height:26px;border-radius:8px;flex:none;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:#0b0714;font-weight:800;
+}
+.nav-links{display:flex;align-items:center;gap:26px;font-size:14px;color:var(--dim)}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{display:flex;align-items:center;gap:10px}
+.nav-cta .btn{padding:9px 18px;font-size:13.5px}
+.burger{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:6px}
+.burger svg{width:24px;height:24px}
+.mobile-menu{display:none;flex-direction:column;gap:4px;padding:10px 24px 20px;border-bottom:1px solid var(--border);background:rgba(5,6,9,.97)}
+.mobile-menu a{padding:10px 0;font-size:15px;color:var(--dim);border-bottom:1px solid rgba(255,255,255,.04)}
+.mobile-menu a:hover{color:var(--text)}
+.mobile-menu.open{display:flex}
+@media (max-width:880px){
+  .nav-links{display:none}
+  .nav-cta .btn-ghost{display:none}
+  .burger{display:block}
+}
+
+/* ---------- hero ---------- */
+.hero{
+  padding:140px 0 90px;text-align:center;position:relative;overflow:hidden;
+}
+.hero::before{ /* violet glow */
+  content:"";position:absolute;top:-320px;left:50%;transform:translateX(-50%);
+  width:1100px;height:750px;pointer-events:none;
+  background:
+    radial-gradient(600px 420px at 38% 40%,rgba(124,108,255,.20),transparent 65%),
+    radial-gradient(560px 400px at 64% 34%,rgba(62,207,255,.13),transparent 65%);
+  filter:blur(6px);
+}
+.hero::after{ /* faint grid */
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+  background-size:56px 56px;
+  -webkit-mask-image:radial-gradient(ellipse 75% 62% at 50% 34%,#000 25%,transparent 72%);
+  mask-image:radial-gradient(ellipse 75% 62% at 50% 34%,#000 25%,transparent 72%);
+}
+.hero .wrap{position:relative;z-index:2}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:500;color:var(--dim);
+  border:1px solid var(--border);border-radius:100px;padding:7px 16px;
+  background:var(--surface);margin-bottom:22px;
+}
+.hero-badge .pulse{width:7px;height:7px;border-radius:50%;background:var(--wa);box-shadow:0 0 0 0 rgba(37,211,102,.55);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 0 0 9px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+.hero h1{
+  font-size:clamp(38px,6.4vw,72px);font-weight:800;letter-spacing:-.035em;
+  line-height:1.06;max-width:900px;margin:0 auto 18px;
+}
+.hero .lead{
+  color:var(--dim);font-size:clamp(16px,2vw,19px);max-width:640px;margin:0 auto 30px;
+}
+.hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:16px}
+.hero-note{font-size:13px;color:var(--muted)}
+
+/* stats strip */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:var(--border);border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;margin-top:56px;
+}
+.stat{background:var(--bg-2);padding:26px 18px;text-align:center}
+.stat .n{font-size:clamp(22px,3vw,32px);font-weight:800;letter-spacing:-.02em}
+.stat .l{font-size:12.5px;color:var(--muted);margin-top:4px;letter-spacing:.02em}
+@media (max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+/* ---------- services ---------- */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:980px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.cards{grid-template-columns:1fr}}
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px 26px;position:relative;overflow:hidden;
+  transition:border-color .2s,transform .2s,background .2s;
+}
+.card:hover{border-color:var(--border-hi);transform:translateY(-3px);background:var(--surface-2)}
+.card .ico{
+  width:44px;height:44px;border-radius:11px;margin-bottom:18px;
+  background:linear-gradient(135deg,rgba(124,108,255,.16),rgba(62,207,255,.12));
+  border:1px solid rgba(124,108,255,.25);
+  display:flex;align-items:center;justify-content:center;
+}
+.card .ico svg{width:21px;height:21px;stroke:var(--accent-2)}
+.card h3{font-size:17.5px;font-weight:700;letter-spacing:-.01em;margin-bottom:9px}
+.card p{font-size:14.5px;color:var(--dim)}
+.card .ex{margin-top:14px;font-size:12.5px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+
+/* ---------- who we help ---------- */
+#who{padding-top:0}
+.wh-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:980px){.wh-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.wh-grid{grid-template-columns:1fr}}
+.wh{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:20px 22px;transition:border-color .2s,transform .2s;
+}
+.wh:hover{border-color:var(--border-hi);transform:translateY(-2px)}
+.wh h3{font-size:15.5px;font-weight:700;letter-spacing:-.01em;margin-bottom:6px}
+.wh p{font-size:13.5px;color:var(--dim)}
+.wh p em{color:var(--accent-2);font-style:normal;font-family:'JetBrains Mono',monospace;font-size:12px}
+
+/* ---------- work ---------- */
+#work{background:var(--bg-2)}
+.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media (max-width:860px){.work-grid{grid-template-columns:1fr}}
+.wk{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:30px 28px;display:block;transition:border-color .2s,transform .2s;
+  position:relative;
+}
+.wk:hover{border-color:var(--border-hi);transform:translateY(-3px)}
+.wk .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.wk h3{font-size:18px;font-weight:700;letter-spacing:-.01em}
+.wk .live{
+  font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--wa);border:1px solid rgba(37,211,102,.35);background:rgba(37,211,102,.08);
+  padding:3px 10px;border-radius:100px;white-space:nowrap;
+}
+.wk .case{
+  font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent-2);border:1px solid rgba(62,207,255,.3);background:rgba(62,207,255,.07);
+  padding:3px 10px;border-radius:100px;white-space:nowrap;
+}
+.wk p{font-size:14.5px;color:var(--dim);margin-bottom:16px}
+.wk .tags{display:flex;flex-wrap:wrap;gap:6px}
+.wk .tag{
+  font-size:11.5px;font-weight:500;padding:3px 10px;border-radius:6px;
+  background:rgba(124,108,255,.1);color:#b6acff;font-family:'JetBrains Mono',monospace;
+}
+.wk .go{position:absolute;top:26px;right:26px;color:var(--muted);transition:color .2s}
+.wk:hover .go{color:var(--accent-2)}
+
+/* ---------- process ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:step}
+@media (max-width:980px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:600px){.steps{grid-template-columns:1fr}}
+.step{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px 24px;position:relative;
+}
+.step .num{
+  font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent-2);
+  margin-bottom:14px;display:block;
+}
+.step h3{font-size:16.5px;font-weight:700;margin-bottom:8px}
+.step p{font-size:14px;color:var(--dim)}
+
+/* ---------- why us / guarantees ---------- */
+#whyus{background:var(--bg-2)}
+.g-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media (max-width:760px){.g-grid{grid-template-columns:1fr}}
+.g-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:28px 26px;display:flex;gap:16px;align-items:flex-start;
+  transition:border-color .2s,transform .2s;
+}
+.g-card:hover{border-color:var(--border-hi);transform:translateY(-3px)}
+.g-card .chk{
+  width:38px;height:38px;border-radius:10px;flex:none;
+  background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);
+  display:flex;align-items:center;justify-content:center;
+}
+.g-card .chk svg{width:18px;height:18px;stroke:var(--wa)}
+.g-card h3{font-size:16.5px;font-weight:700;margin-bottom:7px;letter-spacing:-.01em}
+.g-card p{font-size:14.5px;color:var(--dim)}
+.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+@media (max-width:760px){.vs-grid{grid-template-columns:1fr}}
+.vs{border-radius:var(--radius);padding:28px 26px;border:1px solid var(--border)}
+.vs.them{background:rgba(255,255,255,.02)}
+.vs.us{background:linear-gradient(160deg,rgba(124,108,255,.09),rgba(62,207,255,.05));border-color:rgba(124,108,255,.32)}
+.vs h3{font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:14px}
+.vs.them h3{color:var(--muted)}
+.vs.us h3{color:var(--accent-2)}
+.vs ul{list-style:none}
+.vs li{font-size:14.5px;padding:8px 0 8px 26px;position:relative;border-bottom:1px solid rgba(255,255,255,.045)}
+.vs li:last-child{border-bottom:none}
+.vs.them li{color:var(--muted)}
+.vs.us li{color:var(--dim)}
+.vs.them li::before{content:"✕";position:absolute;left:2px;top:10px;color:#e25f5f;font-size:12px}
+.vs.us li::before{content:"✓";position:absolute;left:1px;top:9px;color:var(--wa);font-size:13px}
+.motto{margin-top:48px;text-align:center}
+.motto .q{font-size:clamp(22px,3.4vw,32px);font-weight:800;letter-spacing:-.02em;line-height:1.3}
+.motto .who{margin-top:10px;font-size:13.5px;color:var(--muted)}
+
+/* ---------- about ---------- */
+.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:start}
+@media (max-width:860px){.about-grid{grid-template-columns:1fr}}
+.about-grid p{color:var(--dim);font-size:15.5px;margin-bottom:16px}
+.about-grid strong{color:var(--text);font-weight:600}
+.skill-box{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;
+}
+.skill-box h3{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.skill-box ul{list-style:none}
+.skill-box li{
+  font-size:14px;color:var(--dim);padding:7px 0 7px 22px;position:relative;
+  border-bottom:1px solid rgba(255,255,255,.045);
+}
+.skill-box li:last-child{border-bottom:none}
+.skill-box li::before{content:"→";position:absolute;left:0;color:var(--accent)}
+
+/* ---------- faq ---------- */
+.faq{max-width:760px;margin:0 auto}
+details{
+  border:1px solid var(--border);border-radius:12px;background:var(--surface);
+  margin-bottom:12px;overflow:hidden;
+}
+summary{
+  cursor:pointer;padding:19px 22px;font-weight:600;font-size:15.5px;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:20px;color:var(--muted);transition:transform .2s;flex:none}
+details[open] summary::after{transform:rotate(45deg)}
+details .a{padding:0 22px 20px;color:var(--dim);font-size:14.5px}
+
+/* ---------- contact ---------- */
+#contact{padding-bottom:120px}
+.contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:start}
+@media (max-width:900px){.contact-grid{grid-template-columns:1fr}}
+.contact-left p{color:var(--dim);font-size:15.5px;margin-bottom:26px;max-width:440px}
+.c-alt{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.c-alt a{
+  display:flex;align-items:center;gap:12px;font-size:14.5px;color:var(--dim);
+  padding:13px 16px;border:1px solid var(--border);border-radius:10px;background:var(--surface);
+  transition:border-color .2s,color .2s;
+}
+.c-alt a:hover{border-color:var(--border-hi);color:var(--text)}
+.c-alt svg{width:18px;height:18px;flex:none}
+
+form{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:32px 30px;
+}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:560px){.f-row{grid-template-columns:1fr}}
+.f-group{margin-bottom:16px}
+label{display:block;font-size:13px;font-weight:600;color:var(--dim);margin-bottom:7px}
+input,select,textarea{
+  width:100%;background:rgba(0,0,0,.32);border:1px solid var(--border);border-radius:9px;
+  padding:12px 14px;color:var(--text);font-family:inherit;font-size:14.5px;
+  transition:border-color .2s;
+}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent)}
+select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239aa3b2' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+select option{background:var(--bg-2);color:var(--text)}
+textarea{resize:vertical;min-height:110px}
+.f-note{font-size:12.5px;color:var(--muted);margin-top:14px;display:flex;align-items:flex-start;gap:8px}
+.f-note svg{width:15px;height:15px;flex:none;margin-top:2px}
+form .btn{width:100%;justify-content:center;margin-top:8px;padding:15px}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--border);padding:36px 0;background:var(--bg)}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.foot .l{font-size:13px;color:var(--muted)}
+.foot .r{display:flex;gap:22px;font-size:13px;color:var(--muted)}
+.foot .r a:hover{color:var(--text)}
+
+/* ---------- floating whatsapp ---------- */
+.wa-float{
+  position:fixed;right:22px;bottom:22px;z-index:90;
+  width:58px;height:58px;border-radius:50%;
+  background:var(--wa);display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 24px rgba(37,211,102,.4);
+  transition:transform .2s;
+}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:30px;height:30px;fill:#04140a}
+.wa-float .tip{
+  position:absolute;right:70px;top:50%;transform:translateY(-50%);
+  background:var(--bg-2);border:1px solid var(--border);color:var(--text);
+  font-size:12.5px;font-weight:500;padding:8px 14px;border-radius:8px;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.wa-float:hover .tip{opacity:1}
+
+/* cta band */
+.cta-band{
+  border:1px solid var(--border);border-radius:20px;padding:56px 40px;text-align:center;
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(480px 260px at 30% 0%,rgba(124,108,255,.16),transparent 70%),
+    radial-gradient(480px 260px at 72% 100%,rgba(62,207,255,.10),transparent 70%),
+    var(--surface);
+}
+.cta-band h2{font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-.03em;margin-bottom:12px}
+.cta-spots{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:600;color:var(--wa);
+  border:1px solid rgba(37,211,102,.35);background:rgba(37,211,102,.07);
+  border-radius:100px;padding:6px 15px;margin-bottom:20px;
+}
+.cta-spots .pulse{width:7px;height:7px;border-radius:50%;background:var(--wa);box-shadow:0 0 0 0 rgba(37,211,102,.55);animation:pulse 2.2s infinite}
+.cta-band p{color:var(--dim);max-width:520px;margin:0 auto 30px}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav id="nav">
+  <div class="nav-in">
+    <a href="#" class="logo"><span class="dot">J</span>Jace AI Solutions</a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#whyus">Why us</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-ghost">Contact</a>
+      <a href="#" class="btn btn-wa" data-wa>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.11 3.22 5.1 4.51.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/><path d="M12.05 2a9.9 9.9 0 0 0-8.57 14.86L2 22l5.27-1.38A9.9 9.9 0 1 0 12.05 2zm0 18.1a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 1 1 6.97 3.87z"/></svg>
+        WhatsApp
+      </a>
+      <button class="burger" id="burger" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mmenu">
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#process">Process</a>
+    <a href="#whyus">Why us</a>
+    <a href="#about">About</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-badge"><span class="pulse"></span><span data-spots-phrase>Spots open for 2 more clients</span>&nbsp;— reply within 24h</div>
+    <h1>Put AI to work in your business.<br><span class="grad-text">Automate the repetitive. Keep the profit.</span></h1>
+    <p class="lead">We work 1-on-1 with your team to find where the friction really is — then build the AI that removes it: custom agents, chatbots, trading systems, and backend automation that free your people for the higher-level work that actually grows the business.</p>
+    <div class="hero-ctas">
+      <a href="#" class="btn btn-wa" data-wa>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.11 3.22 5.1 4.51.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/><path d="M12.05 2a9.9 9.9 0 0 0-8.57 14.86L2 22l5.27-1.38A9.9 9.9 0 1 0 12.05 2zm0 18.1a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 1 1 6.97 3.87z"/></svg>
+        Chat on WhatsApp
+      </a>
+      <a href="#contact" class="btn btn-ghost">Tell us what you need →</a>
+    </div>
+    <div class="hero-note">Free AI audit — your top automation opportunities, mapped · No payment until you're convinced · <a href="mailto:jacesabr@gmail.com" style="text-decoration:underline;text-underline-offset:3px">jacesabr@gmail.com</a></div>
+
+    <div class="stats rv">
+      <div class="stat"><div class="n grad-text">3</div><div class="l">AI products live in production</div></div>
+      <div class="stat"><div class="n grad-text">3,500+</div><div class="l">listings on one platform we built</div></div>
+      <div class="stat"><div class="n grad-text">10+</div><div class="l">AI systems built &amp; shipped</div></div>
+      <div class="stat"><div class="n grad-text">Global</div><div class="l">startups to government scale</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ SERVICES ============ -->
+<section id="services">
+  <div class="wrap">
+    <div class="kicker rv">Services</div>
+    <h2 class="sec-title rv">What we automate and build</h2>
+    <p class="sec-sub rv">Plain-language services, outcome first. If a person at your company does it repeatedly on a screen, there's a good chance AI can do most of it — industry benchmarks put well-scoped automation at 15–35% operational cost reduction, and our free audit tells you honestly whether your case clears that bar.</p>
+    <div class="cards">
+      <div class="card rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6l2.1 2.1M5.6 18.4l2.1-2.1m8.6-8.6l2.1-2.1"/><circle cx="12" cy="12" r="3.2"/></svg></div>
+        <h3>AI Workflow Automation</h3>
+        <p>We take the repetitive work your team does every day — filling forms, processing applications, writing reports, moving data between systems — and hand it to AI. Hours become minutes.</p>
+        <div class="ex">e.g. an agent that filed job applications end-to-end</div>
+      </div>
+      <div class="card rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 8V4m-4 8h.01M16 12h.01M9 16h6"/></svg></div>
+        <h3>Custom AI Agents</h3>
+        <p>Multi-agent systems that use your tools, follow your rules, and act on your behalf — researching, deciding, and executing multi-step tasks with control loops that keep them on track.</p>
+        <div class="ex">agentic systems · tool use · guardrails</div>
+      </div>
+      <div class="card rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a8.5 8.5 0 0 1-8.5 8.5c-1.4 0-2.7-.3-3.9-.9L3 21l1.4-5.6a8.5 8.5 0 1 1 16.6-3.4z"/><path d="M8.5 10.5h7m-7 3.5h4.5"/></svg></div>
+        <h3>Chatbots, RAG &amp; Knowledge Assistants</h3>
+        <p>Assistants that actually know your business — trained on your documents, catalogues, and policies with retrieval that cites its sources. For customers or for your own team.</p>
+        <div class="ex">retrieval-augmented generation · semantic search</div>
+      </div>
+      <div class="card rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 17l6-6-6-6m8 14h8"/></svg></div>
+        <h3>AI-Powered Products</h3>
+        <p>Full products built end to end — web app, backend, payments, SEO, and the AI inside it. We've shipped tutoring engines, marketplaces, and application agents that run as live businesses.</p>
+        <div class="ex">full-stack · APIs · auth · payments</div>
+      </div>
+      <div class="card rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01M11 7h6M11 17h6"/></svg></div>
+        <h3>Backend Systems Automation</h3>
+        <p>We connect and automate the systems behind your business — CRM, invoicing, inventory, scheduling, internal tools — so data flows itself and your backend runs without babysitting.</p>
+        <div class="ex">integrations · pipelines · internal tools</div>
+      </div>
+      <div class="card rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l5-5 4 4 8-8"/><path d="M15 8h5v5"/></svg></div>
+        <h3>Trading &amp; Market Systems</h3>
+        <p>Agentic systems for time-series markets — models that read live data, call short-term moves, and execute your strategy with discipline a human can't hold at 3am. Built for any market on a clock.</p>
+        <div class="ex">time series · live data · strategy automation</div>
+      </div>
+      <div class="card rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z"/></svg></div>
+        <h3>LLM Inference &amp; Cost Optimization</h3>
+        <p>Already using AI but the bill hurts, or it's too slow? We optimize serving — quantization, batching, caching, self-hosting on vLLM/TensorRT-LLM — so the same product runs faster for less.</p>
+        <div class="ex">quantization · KV-cache · vLLM · on-device</div>
+      </div>
+      <div class="card rv">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></div>
+        <h3>AI Strategy &amp; Advisory</h3>
+        <p>Not sure where AI fits? We audit your operations, find the highest-ROI automation targets, pick the right models, handle compliance, and train the people who'll actually use it.</p>
+        <div class="ex">model choice · deployment · compliance · training</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHO WE HELP ============ -->
+<section id="who">
+  <div class="wrap">
+    <div class="kicker rv">Who we help</div>
+    <h2 class="sec-title rv">Built for the businesses doing the work</h2>
+    <p class="sec-sub rv">We've shipped AI in these worlds already — if yours isn't listed, the free audit will tell you honestly whether it fits.</p>
+    <div class="wh-grid">
+      <div class="wh rv">
+        <h3>E-commerce &amp; retail</h3>
+        <p>Order and inventory flows, product descriptions at scale, support assistants that answer from your catalogue. <em>fewer tickets, faster listings</em></p>
+      </div>
+      <div class="wh rv">
+        <h3>Professional services</h3>
+        <p>Law, accounting, agencies — document drafting, client intake, and assistants that answer from your own files with sources cited. <em>billable hours back</em></p>
+      </div>
+      <div class="wh rv">
+        <h3>Real estate &amp; property</h3>
+        <p>Listing content, inquiry triage, application and document processing — the paperwork side of property, automated. <em>faster deals, less admin</em></p>
+      </div>
+      <div class="wh rv">
+        <h3>Local &amp; wellness services</h3>
+        <p>Booking, lead generation, directories, and review responses — we run a live 3,500-listing wellness platform ourselves. <em>we're in this market too</em></p>
+      </div>
+      <div class="wh rv">
+        <h3>Education &amp; training</h3>
+        <p>AI tutors with real mastery checks, course content pipelines, and interview-prep engines — two of ours are live products. <em>teaching that scales</em></p>
+      </div>
+      <div class="wh rv">
+        <h3>Finance &amp; trading</h3>
+        <p>Market systems reading live data, strategy automation, reporting, and fraud detection models. <em>discipline a human can't hold at 3am</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORK ============ -->
+<section id="work">
+  <div class="wrap">
+    <div class="kicker rv">Proof of work</div>
+    <h2 class="sec-title rv">Real systems, live in production</h2>
+    <p class="sec-sub rv">Not slideware. These are AI products and systems we designed, built, and shipped — several run as live businesses today.</p>
+    <div class="work-grid">
+      <a href="https://firsthello.ca" target="_blank" rel="noopener" class="wk rv">
+        <span class="go">↗</span>
+        <div class="top"><h3>First Hello — AI Application Agent</h3><span class="live">● Live</span></div>
+        <p>An AI agent that applies to jobs and housing on a person's behalf — automating the high-volume application grind end to end. Backed by $20K in funding from E2B. The same pattern automates any form-heavy back-office workflow.</p>
+        <div class="tags"><span class="tag">agentic AI</span><span class="tag">automation</span><span class="tag">browser agents</span></div>
+      </a>
+      <a href="https://wellnesslistingscanada.ca/" target="_blank" rel="noopener" class="wk rv">
+        <span class="go">↗</span>
+        <div class="top"><h3>Glow — Wellness Listings Canada</h3><span class="live">● Live</span></div>
+        <p>Canada's directory for spa, massage &amp; beauty services — 3,500+ listings, programmatic per-city landing pages, server-rendered SEO, and paid posting with integrated payments.</p>
+        <div class="tags"><span class="tag">full-stack</span><span class="tag">SEO</span><span class="tag">payments</span></div>
+      </a>
+      <a href="https://ie-web.onrender.com" target="_blank" rel="noopener" class="wk rv">
+        <span class="go">↗</span>
+        <div class="top"><h3>My Personal Teacher — AI Tutor Engine</h3><span class="live">● Live</span></div>
+        <p>A "teach, confirm, test" AI tutoring engine with deterministic mastery checks instead of LLM vibes — deployed for technical interview prep, with a maths variant for CBSE/JEE students.</p>
+        <div class="tags"><span class="tag">LLM product</span><span class="tag">education</span><span class="tag">evaluation</span></div>
+      </a>
+      <div class="wk rv">
+        <div class="top"><h3>Simple Analysis — Market Prediction</h3><span class="case">Case study</span></div>
+        <p>A future-prediction platform for time-series markets — agentic models reading live data to call short-term moves. Running on Bitcoin, built to extend to any market that moves on a clock.</p>
+        <div class="tags"><span class="tag">time series</span><span class="tag">agentic AI</span><span class="tag">live data</span></div>
+      </div>
+      <div class="wk rv">
+        <div class="top"><h3>Morrigan — Synthetic Human</h3><span class="case">Case study</span></div>
+        <p>An AI companion with long-term memory, inner thoughts, and trust built over time — on a fine-tuned LLaMA 3. The memory and personality stack behind truly personal assistants.</p>
+        <div class="tags"><span class="tag">fine-tuning</span><span class="tag">LLaMA 3</span><span class="tag">memory</span></div>
+      </div>
+      <div class="wk rv">
+        <div class="top"><h3>Applied ML Systems</h3><span class="case">Case study</span></div>
+        <p>Classic machine-learning delivery: credit-card fraud detection, ad-targeting &amp; CTR prediction, recommendation engines, and price prediction — the models that quietly move business metrics.</p>
+        <div class="tags"><span class="tag">fraud detection</span><span class="tag">CTR prediction</span><span class="tag">recommenders</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section id="process">
+  <div class="wrap">
+    <div class="kicker rv">How it works</div>
+    <h2 class="sec-title rv">From "we should use AI" to AI doing the work</h2>
+    <p class="sec-sub rv">A simple, low-risk path. You see something working before you commit to anything big.</p>
+    <div class="steps">
+      <div class="step rv">
+        <span class="num">01</span>
+        <h3>Free audit — 1-on-1</h3>
+        <p>We sit down 1-on-1 with your team, map your top automation opportunities, and find where the friction genuinely is — free, with an honest go/no-go.</p>
+      </div>
+      <div class="step rv">
+        <span class="num">02</span>
+        <h3>Prototype</h3>
+        <p>We build a working proof-of-concept on your real workflow — fast. You judge results, not promises.</p>
+      </div>
+      <div class="step rv">
+        <span class="num">03</span>
+        <h3>Deploy</h3>
+        <p>The prototype becomes a production system — integrated with your tools, secured, monitored, and owned by you.</p>
+      </div>
+      <div class="step rv">
+        <span class="num">04</span>
+        <h3>Train &amp; support</h3>
+        <p>We train your team to run it and stay available as it scales. AI only pays off when your people actually use it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section id="whyus">
+  <div class="wrap">
+    <div class="kicker rv">Why us</div>
+    <h2 class="sec-title rv">Our moat is working <span class="grad-text">1-on-1</span> with your team</h2>
+    <p class="sec-sub rv">We don't sell generic AI. We sit with the people doing the work, discover your specific needs, and remove the friction that keeps them stuck on repetitive tasks — creating room to focus on the higher-level work that improves your business. The founder personally does every intake and personally holds every delivery to international AI standards, including government regulations on data. And we back it with terms most consultancies won't offer:</p>
+    <div class="g-grid">
+      <div class="g-card rv">
+        <div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div>
+          <h3>Free AI audit — pay only when convinced</h3>
+          <p>The first step costs nothing: we map your top automation opportunities with an honest go/no-go — the audit many agencies charge $500–$1,000+ for. No payment until you're convinced we can deliver real value.</p>
+        </div>
+      </div>
+      <div class="g-card rv">
+        <div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div>
+          <h3>We only take work we're certain pays off</h3>
+          <p>If we're not certain you'll be more profitable and less stressed after partnering with us, we'll say so and turn the project down. The field is already flooded with rushed, sub-par AI — we exist to raise that standard, not add to the pile.</p>
+        </div>
+      </div>
+      <div class="g-card rv">
+        <div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div>
+          <h3>100% satisfaction — no-questions refund</h3>
+          <p>If you feel the product or service isn't up to industry standard, you get a refund. No questions asked, no time limit. That's how we keep client satisfaction at 100%.</p>
+        </div>
+      </div>
+      <div class="g-card rv">
+        <div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <div>
+          <h3>Lifetime support, included</h3>
+          <p>We stand behind what we build — any tech issue or modification needed to keep your system performing to the original task's standard is covered, for life. No questions asked.</p>
+        </div>
+      </div>
+    </div>
+    <div class="vs-grid">
+      <div class="vs them rv">
+        <h3>The usual agency</h3>
+        <ul>
+          <li>One of 12,000+ agencies that appeared since 2024 — most of the new ones have fewer than five completed projects</li>
+          <li>Talks a big talk, then hands your project offshore to Fiverr freelancers and college students</li>
+          <li>Project managers on rotation, juggling ten projects at a time</li>
+          <li>An army of interchangeable developers that weakens the company from the inside</li>
+          <li>Accepts every project — quality is someone else's problem</li>
+        </ul>
+      </div>
+      <div class="vs us rv">
+        <h3>Jace AI Solutions</h3>
+        <ul>
+          <li>The founder personally does every intake — no hand-offs, ever</li>
+          <li>Every delivery personally checked against international AI standards, including govt. data regulations</li>
+          <li>A few handpicked associates with deep domain-specific knowledge — you won't find this elsewhere</li>
+          <li>Deliberately selective — we'd rather genuinely improve the field and keep every client happy than accept every project that comes our way</li>
+        </ul>
+      </div>
+    </div>
+    <div class="motto rv">
+      <div class="q">“<span class="grad-text">What can we do to make this better?</span>”</div>
+      <div class="who">— the only question we ask after delivery. That's our motto.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <div class="kicker rv">About</div>
+        <h2 class="sec-title rv">Built by an engineer,<br>not a slide deck</h2>
+        <div class="rv">
+          <p>Jace AI Solutions is led by <strong>Jace Sabr</strong> — an AI engineer and inference-engineering specialist (BSc Computer Science, University of British Columbia) who has worked with <strong>startups, small businesses, and governments</strong>, from quick prototypes for a five-person team to national-scale rollouts.</p>
+          <p>The difference from most consultancies: <strong>we build</strong>. The products in the Work section above were designed, coded, and shipped by us — work that has won <strong>$20K in funding from E2B</strong> (for First Hello) — so the advice you get is grounded in what actually survives contact with production, not what sounds good in a proposal.</p>
+          <p>And <strong>nothing is outsourced</strong>: the founder personally handles every intake and personally signs off every delivery against international AI standards — including government regulations on data — working with a few handpicked associates chosen for deep domain-specific knowledge. No freelancer hand-offs, no rotating army of developers.</p>
+          <p>We work globally, remote-first, in English.</p>
+        </div>
+      </div>
+      <div class="skill-box rv">
+        <h3>Technical depth on tap</h3>
+        <ul>
+          <li>Production LLM inference — quantization, KV-cache, vLLM / TensorRT-LLM</li>
+          <li>Agentic systems — multi-agent, tool use, control loops</li>
+          <li>Fine-tuning &amp; deploying custom LLMs</li>
+          <li>Memory, retrieval &amp; RAG pipelines</li>
+          <li>Full-stack web apps — MERN, APIs, auth, payments</li>
+          <li>ML &amp; deep learning — PyTorch, TensorFlow</li>
+          <li>Computer vision &amp; embedded — OpenCV, YOLO, edge devices</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="kicker rv">FAQ</div>
+    <h2 class="sec-title rv">Common questions</h2>
+    <p class="sec-sub rv">If yours isn't here, it's a one-minute WhatsApp message away.</p>
+    <div class="faq rv">
+      <details>
+        <summary>My business isn't technical. Can we still use AI?</summary>
+        <div class="a">Yes — most of our automation work is for non-technical teams. If your staff spends hours on email, forms, documents, scheduling, data entry, or answering the same questions, those are exactly the tasks AI handles well. You describe the work in plain language; we handle everything technical.</div>
+      </details>
+      <details>
+        <summary>How much does it cost?</summary>
+        <div class="a">The consultation is free, and no payment happens until you're convinced we can deliver value. Scope sets the price, you'll always know it before we build — and if we don't believe the project will leave you more profitable and less stressed, we'll decline it rather than take your money for a sub-par result.</div>
+      </details>
+      <details>
+        <summary>What if we're not happy with the result?</summary>
+        <div class="a">Then you get your money back. If you feel the product or service isn't up to industry standard, we offer a no-questions-asked refund with no time limit — that guarantee is how we hold ourselves to 100% client satisfaction.</div>
+      </details>
+      <details>
+        <summary>What happens after delivery?</summary>
+        <div class="a">Lifetime support, included. Any tech issue or modification needed to keep the system performing to the standard of its original task is on us — no questions asked. The only thing we'll ask is our motto: "What can we do to make this better?"</div>
+      </details>
+      <details>
+        <summary>How fast can we see something working?</summary>
+        <div class="a">Prototypes are typically a matter of days to a couple of weeks, not months. We deliberately scope the first build small so you can judge real results on your real workflow early.</div>
+      </details>
+      <details>
+        <summary>What about our data and privacy?</summary>
+        <div class="a">Your data stays yours. Where requirements are strict we can deploy models on your own infrastructure (self-hosted, even fully offline) — inference optimization and self-hosted LLM serving are a core specialty, not an afterthought.</div>
+      </details>
+      <details>
+        <summary>Do you only do chatbots?</summary>
+        <div class="a">No — chat is just one interface. We build agents that execute multi-step work, automation pipelines with no chat at all, classic ML (fraud detection, prediction, recommendations), and complete AI-powered products with payments and SEO.</div>
+      </details>
+      <details>
+        <summary>Who actually does the work?</summary>
+        <div class="a">The founder, personally — every intake and every final sign-off — alongside a few handpicked associates with deep domain-specific knowledge. Nothing is handed to Fiverr freelancers, offshore teams, or a project manager juggling ten projects on rotation. That structure is deliberate, and it's also why we can't accept every project.</div>
+      </details>
+      <details>
+        <summary>How do we start?</summary>
+        <div class="a">Message us on WhatsApp (button below) or fill in the contact form — it arrives straight in our WhatsApp. Tell us what your team spends too much time on, and we'll reply within 24 hours and set up your free audit — an honest read on whether AI can help, and what it's worth to you if it can.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BAND ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band rv">
+      <div class="cta-spots"><span class="pulse"></span><span data-spots-phrase>Spots open for 2 more clients</span></div>
+      <h2>What's eating your team's hours?</h2>
+      <p>Tell us in one WhatsApp message — the consultation is free, and you pay nothing until you're convinced. If we don't think you'll come out ahead, we'll tell you that too.</p>
+      <a href="#" class="btn btn-wa" data-wa>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.11 3.22 5.1 4.51.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/><path d="M12.05 2a9.9 9.9 0 0 0-8.57 14.86L2 22l5.27-1.38A9.9 9.9 0 1 0 12.05 2zm0 18.1a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 1 1 6.97 3.87z"/></svg>
+        Start the conversation
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <div class="kicker rv">Contact</div>
+        <h2 class="sec-title rv">Tell us what you need</h2>
+        <p class="rv">Fill in the form and hit send — it opens WhatsApp with your message ready to go, straight to us. Prefer email? That works too.</p>
+        <div class="c-alt rv">
+          <a href="#" data-wa>
+            <svg viewBox="0 0 24 24" fill="currentColor" style="color:var(--wa)"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.11 3.22 5.1 4.51.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/><path d="M12.05 2a9.9 9.9 0 0 0-8.57 14.86L2 22l5.27-1.38A9.9 9.9 0 1 0 12.05 2zm0 18.1a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 1 1 6.97 3.87z"/></svg>
+            Chat directly on WhatsApp
+          </a>
+          <a href="mailto:jacesabr@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="color:var(--accent-2)"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            jacesabr@gmail.com
+          </a>
+        </div>
+      </div>
+      <form id="waForm" class="rv">
+        <div class="f-row">
+          <div class="f-group">
+            <label for="f-name">Your name *</label>
+            <input id="f-name" name="name" type="text" required placeholder="Jane Smith">
+          </div>
+          <div class="f-group">
+            <label for="f-company">Company</label>
+            <input id="f-company" name="company" type="text" placeholder="Acme Inc.">
+          </div>
+        </div>
+        <div class="f-group">
+          <label for="f-email">Email *</label>
+          <input id="f-email" name="email" type="email" required placeholder="jane@acme.com">
+        </div>
+        <div class="f-group">
+          <label for="f-interest">What are you interested in?</label>
+          <select id="f-interest" name="interest">
+            <option>Automating a workflow</option>
+            <option>Automating our backend systems</option>
+            <option>A custom AI agent</option>
+            <option>Chatbot / knowledge assistant</option>
+            <option>A trading / market system</option>
+            <option>Building an AI-powered product</option>
+            <option>Cutting AI / LLM running costs</option>
+            <option>AI strategy &amp; advisory</option>
+            <option>Not sure yet — let's talk</option>
+          </select>
+        </div>
+        <div class="f-group">
+          <label for="f-msg">What does your team spend too much time on? *</label>
+          <textarea id="f-msg" name="message" required placeholder="e.g. We process ~200 supplier invoices a week by hand, and answering the same customer questions takes half of support's day..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-wa">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.11 3.22 5.1 4.51.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/><path d="M12.05 2a9.9 9.9 0 0 0-8.57 14.86L2 22l5.27-1.38A9.9 9.9 0 1 0 12.05 2zm0 18.1a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 1 1 6.97 3.87z"/></svg>
+          Send via WhatsApp
+        </button>
+        <div class="f-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M12 11v5"/></svg>
+          Sending opens WhatsApp with your message pre-filled — nothing is stored on this site, and you press the final send yourself.
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap foot">
+    <div class="l">© 2026 Jace AI Solutions · Jace Sabr · Working globally</div>
+    <div class="r">
+      <a href="mailto:jacesabr@gmail.com">jacesabr@gmail.com</a>
+      <a href="#" data-wa>WhatsApp</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<!-- floating WhatsApp bubble -->
+<a href="#" class="wa-float" data-wa aria-label="Chat on WhatsApp">
+  <span class="tip">Chat about your project</span>
+  <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.89 1.22 3.09.15.2 2.11 3.22 5.1 4.51.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.58-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35z"/><path d="M12.05 2a9.9 9.9 0 0 0-8.57 14.86L2 22l5.27-1.38A9.9 9.9 0 1 0 12.05 2zm0 18.1a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.12.82.83-3.05-.2-.31a8.2 8.2 0 1 1 6.97 3.87z"/></svg>
+</a>
+
+<script>
+/* ============================================================
+   CONFIG — the only thing you need to edit.
+   WhatsApp number in international format, digits only:
+   country code + number, NO "+", NO spaces, NO dashes.
+   e.g. Canada 604-555-1234  ->  "16045551234"
+   ============================================================ */
+const WHATSAPP_NUMBER = "917973744625";   // +91 79737 44625
+
+const WA_GREETING = "Hi Jace! I found you through Jace AI Solutions — I'd like to talk about using AI in my business.";
+
+function waLink(text){
+  return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(text);
+}
+
+/* wire every data-wa element to open a WhatsApp chat */
+document.querySelectorAll("[data-wa]").forEach(el=>{
+  el.addEventListener("click",e=>{
+    e.preventDefault();
+    window.open(waLink(WA_GREETING),"_blank","noopener");
+  });
+});
+
+/* contact form -> pre-filled WhatsApp message to Jace */
+document.getElementById("waForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const f = e.target;
+  const msg =
+    "New project inquiry — Jace AI Solutions\n" +
+    "-----------------------------------\n" +
+    "Name: "     + f.name.value.trim() + "\n" +
+    "Company: "  + (f.company.value.trim() || "—") + "\n" +
+    "Email: "    + f.email.value.trim() + "\n" +
+    "Interested in: " + f.interest.value + "\n" +
+    "-----------------------------------\n" +
+    f.message.value.trim();
+  window.open(waLink(msg),"_blank","noopener");
+});
+
+/* daily scarcity counter — 1 to 5 spots, seeded from today's date so every
+   visitor sees the same number all day and it changes tomorrow (no backend) */
+function dailySpots(){
+  let x = Math.floor(Date.now() / 86400000);   // UTC day number
+  x = (((x >>> 16) ^ x) * 0x45d9f3b) >>> 0;
+  x = (((x >>> 16) ^ x) * 0x45d9f3b) >>> 0;
+  x = ((x >>> 16) ^ x) >>> 0;   // >>>0 keeps it unsigned — signed XOR made this go negative
+  return (x % 5) + 1;
+}
+const spots = dailySpots();
+const spotsPhrase = spots === 1
+  ? "Spot open for 1 more client"
+  : "Spots open for " + spots + " more clients";
+document.querySelectorAll("[data-spots-phrase]").forEach(el => el.textContent = spotsPhrase);
+
+/* nav scroll state */
+const nav = document.getElementById("nav");
+addEventListener("scroll",()=>nav.classList.toggle("scrolled",scrollY>10),{passive:true});
+
+/* mobile menu */
+const burger = document.getElementById("burger");
+const mmenu  = document.getElementById("mmenu");
+burger.addEventListener("click",()=>mmenu.classList.toggle("open"));
+mmenu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>mmenu.classList.remove("open")));
+
+/* reveal on scroll */
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target);} });
+},{threshold:.12});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
