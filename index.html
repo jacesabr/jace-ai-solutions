@@ -72,7 +72,9 @@ nav.scrolled{border-bottom-color:var(--border)}
 .nav-links a:hover{color:var(--text)}
 .nav-cta{display:flex;align-items:center;gap:10px}
 .nav-cta .btn{padding:9px 18px;font-size:13.5px}
+.logo-by{font-family:'Inter',sans-serif;font-weight:500;font-size:12px;color:var(--muted);white-space:nowrap}
 @media (max-width:880px){.nav-links{display:none}}
+@media (max-width:560px){.logo-by{display:none}}
 
 /* hero */
 .hero{padding:136px 0 84px;position:relative;overflow:hidden}
@@ -103,6 +105,34 @@ nav.scrolled{border-bottom-color:var(--border)}
 .term-body .pause{color:#d9a441}
 .term-cap{font-size:11.5px;color:#8c8578;padding:0 20px 16px;font-family:'JetBrains Mono',monospace}
 @media (prefers-reduced-motion:reduce){.term-body .ln{opacity:1;transform:none}}
+
+/* browser-mock — the agent visibly reading & filling a real page */
+.browser{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(25,23,19,.18)}
+.b-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid var(--border);background:#f4f1ea}
+.b-bar .c{width:11px;height:11px;border-radius:50%}
+.b-bar .c1{background:#ff5f57}.b-bar .c2{background:#febc2e}.b-bar .c3{background:#28c840}
+.b-url{margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#8c8578;background:#fff;border:1px solid var(--border);border-radius:6px;padding:3px 10px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.b-body{padding:18px 20px 16px;position:relative}
+.b-title{font-weight:700;font-size:14.5px;margin-bottom:14px;color:var(--text)}
+.fld{margin-bottom:12px;position:relative}
+.fld label{display:block;font-size:11.5px;font-weight:600;color:var(--muted);margin-bottom:4px}
+.inp{border:1px solid var(--border);border-radius:8px;background:var(--bg);padding:8px 36px 8px 12px;font-size:13px;color:var(--text);min-height:36px;display:flex;align-items:center}
+.caret{width:1.5px;height:15px;background:var(--accent);margin-left:2px;opacity:0}
+.fld.typing .caret{opacity:1;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.fld .done{position:absolute;right:11px;bottom:10px;color:#12833b;font-size:13px;font-weight:700;opacity:0;transition:opacity .3s}
+.fld.scanning .done{opacity:0}
+.fld.ok .done{opacity:1}
+.b-submit{margin-top:6px;width:100%;border:none;border-radius:8px;background:var(--accent);color:#fff;font-weight:600;font-size:13.5px;padding:11px;font-family:inherit;transition:transform .15s,opacity .2s;cursor:default}
+.b-submit.pressed{transform:scale(.97);opacity:.85}
+.b-success{margin-top:10px;background:rgba(18,131,59,.08);border:1px solid rgba(18,131,59,.3);color:#12833b;font-size:12.5px;font-weight:600;border-radius:8px;padding:9px 12px;opacity:0;transition:opacity .4s}
+.b-success.show{opacity:1}
+.scan{position:absolute;border:2px dashed var(--accent);border-radius:10px;pointer-events:none;transition:all .55s cubic-bezier(.4,0,.2,1);box-shadow:0 0 0 4px rgba(201,100,66,.08);opacity:0;z-index:5}
+.scan.on{opacity:1}
+.chip{position:absolute;top:50%;transform:translateY(-50%);right:8px;background:#1d1a15;color:#e8e2d5;font-family:'JetBrains Mono',monospace;font-size:10.5px;padding:4px 9px;border-radius:6px;white-space:nowrap;box-shadow:0 3px 10px rgba(25,23,19,.25)}
+.chip::before{content:"◉ ";color:#e08a63}
+.b-log{border-top:1px solid var(--border);background:#1d1a15;color:#8fbf7f;font-family:'JetBrains Mono',monospace;font-size:11px;padding:9px 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.b-cap{font-size:11.5px;color:var(--muted);margin-top:10px;font-family:'JetBrains Mono',monospace;text-align:center}
 
 /* stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:60px;box-shadow:var(--shadow)}
@@ -195,7 +225,7 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg)}
 
 <nav id="nav">
   <div class="nav-in">
-    <a href="#" class="logo"><span class="dot">&gt;_</span>DeskHand <span style="font-family:'Inter',sans-serif;font-weight:500;font-size:12px;color:var(--muted)">by Jace AI Solutions</span></a>
+    <a href="#" class="logo"><span class="dot">&gt;_</span>DeskHand <span class="logo-by">by Jace AI Solutions</span></a>
     <div class="nav-links">
       <a href="#how">How it works</a>
       <a href="#example">Example</a>
@@ -228,20 +258,44 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg)}
       </div>
       <div class="hero-note">Free workflow audit · No payment until you're convinced · <a href="mailto:jacesabr@gmail.com">jacesabr@gmail.com</a></div>
     </div>
-    <div class="term rv">
-      <div class="term-bar"><span class="c c1"></span><span class="c c2"></span><span class="c c3"></span><span class="t">agent — live run</span></div>
-      <div class="term-body">
-        <span class="ln task">▸ task: submit application — City of Vancouver careers portal</span>
-        <span class="ln ok">✓ portal opened (SuccessFactors — no public API)</span>
-        <span class="ln ok">✓ no account found → candidate account created</span>
-        <span class="ln ok">✓ email verification code read automatically</span>
-        <span class="ln ok">✓ 40+ fields filled from profile — truthful answers only</span>
-        <span class="ln ok">✓ resume uploaded · screening questions answered</span>
-        <span class="ln pause">⏸ consent gate — waiting for human approval…</span>
-        <span class="ln ok">✓ approved → submitted</span>
-        <span class="ln ok">✓ confirmation: "Your application has been sent. Thank you!"</span>
+    <div class="rv">
+      <div class="browser">
+        <div class="b-bar">
+          <span class="c c1"></span><span class="c c2"></span><span class="c c3"></span>
+          <span class="b-url">careers.vancouver.ca — application form</span>
+        </div>
+        <div class="b-body" id="bBody">
+          <div class="b-title">Candidate Application — Project Manager II</div>
+
+          <div class="fld" data-field="0">
+            <label>Full legal name</label>
+            <div class="inp"><span class="val"></span><span class="caret"></span></div>
+            <span class="done">✓</span>
+          </div>
+          <div class="fld" data-field="1">
+            <label>Email address</label>
+            <div class="inp"><span class="val"></span><span class="caret"></span></div>
+            <span class="done">✓</span>
+          </div>
+          <div class="fld" data-field="2">
+            <label>Have you been convicted of a criminal offence? (screening)</label>
+            <div class="inp"><span class="val"></span><span class="caret"></span></div>
+            <span class="done">✓</span>
+          </div>
+          <div class="fld" data-field="3">
+            <label>Resume</label>
+            <div class="inp"><span class="val"></span><span class="caret"></span></div>
+            <span class="done">✓</span>
+          </div>
+
+          <button class="b-submit" id="bSubmit">Submit application</button>
+          <div class="b-success" id="bSuccess">✓ Your application has been sent. Thank you!</div>
+
+          <div class="scan" id="scan"><span class="chip" id="scanChip">reading page…</span></div>
+        </div>
+        <div class="b-log" id="bLog">▸ agent ready</div>
       </div>
-      <div class="term-cap">reconstructed from real runs, July 2026 — this submission actually happened</div>
+      <div class="b-cap">the agent sees the page, decides, and acts — reconstructed from a real July 2026 run</div>
     </div>
   </div>
   <div class="wrap">
@@ -488,7 +542,7 @@ addEventListener("scroll",()=>nav.classList.toggle("scrolled",scrollY>10),{passi
 const io=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target);}})},{threshold:.12});
 document.querySelectorAll(".rv").forEach(el=>io.observe(el));
 
-/* terminal line-by-line animation (all terminals), replays every 16s */
+/* terminal line-by-line animation (example section), replays every 16s */
 const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
 document.querySelectorAll(".term-body").forEach(body=>{
   const lines=body.querySelectorAll(".ln");
@@ -500,6 +554,101 @@ document.querySelectorAll(".term-body").forEach(body=>{
   play();
   if(!reduced) setInterval(play,16000);
 });
+
+/* hero browser mock — the agent reads the page, reasons, types, submits.
+   the reticle is positioned over each real field so it reads as vision, not a script. */
+(function(){
+  const body    = document.getElementById("bBody");
+  const scan    = document.getElementById("scan");
+  const chip    = document.getElementById("scanChip");
+  const log     = document.getElementById("bLog");
+  const submit  = document.getElementById("bSubmit");
+  const success = document.getElementById("bSuccess");
+  if(!body) return;
+
+  const flds = [...body.querySelectorAll(".fld")];
+  const steps = [
+    {think:"reading field: name",            text:"Jace Sabr",                        log:"✓ field read → filled from profile"},
+    {think:"reading field: email",           text:"jace.sabr@coastmail.ca",           log:"✓ verified inbox address used"},
+    {think:"screening question — never fabricate", text:"No",                         log:"✓ answered truthfully from profile data"},
+    {think:"upload control detected",        text:"jace-sabr-resume.pdf",             log:"✓ resume uploaded"}
+  ];
+
+  const wait = ms => new Promise(r=>setTimeout(r,ms));
+
+  function frame(el){
+    const b = el.getBoundingClientRect(), p = body.getBoundingClientRect();
+    scan.style.top    = (b.top  - p.top  - 6) + "px";
+    scan.style.left   = (b.left - p.left - 6) + "px";
+    scan.style.width  = (b.width  + 12) + "px";
+    scan.style.height = (b.height + 12) + "px";
+  }
+
+  function reset(){
+    scan.classList.remove("on");
+    success.classList.remove("show");
+    submit.classList.remove("pressed");
+    log.textContent = "▸ agent ready";
+    flds.forEach(f=>{
+      f.classList.remove("ok","typing","scanning");
+      f.querySelector(".val").textContent = "";
+    });
+  }
+
+  async function type(fld, text){
+    const val = fld.querySelector(".val");
+    fld.classList.add("typing");
+    for(const ch of text){ val.textContent += ch; await wait(38); }
+    fld.classList.remove("typing");
+    fld.classList.add("ok");
+  }
+
+  async function run(){
+    reset();
+    await wait(700);
+    scan.classList.add("on");
+
+    for(let i=0;i<steps.length;i++){
+      const fld = flds[i], s = steps[i];
+      fld.classList.add("scanning");           // ✓ stays hidden while the reticle is here
+      frame(fld);
+      chip.textContent = s.think;              // "reading page" beat
+      await wait(900);
+      chip.textContent = "typing…";
+      await type(fld, s.text);
+      log.textContent = s.log;
+      await wait(500);
+      fld.classList.remove("scanning");        // reticle moves on → ✓ lands
+    }
+
+    frame(submit);
+    chip.textContent = "consent gate — awaiting approval";
+    log.textContent  = "⏸ paused — a human must approve before sending";
+    await wait(1800);
+
+    chip.textContent = "approved → submitting";
+    submit.classList.add("pressed");
+    await wait(600);
+    scan.classList.remove("on");
+    submit.classList.remove("pressed");
+    success.classList.add("show");
+    log.textContent = '✓ confirmation: "Your application has been sent. Thank you!"';
+    await wait(4200);
+    run();
+  }
+
+  if(reduced){
+    // static, fully-filled state for reduced-motion users
+    flds.forEach((f,i)=>{ f.querySelector(".val").textContent = steps[i].text; f.classList.add("ok"); });
+    success.classList.add("show");
+    log.textContent = '✓ confirmation: "Your application has been sent. Thank you!"';
+  } else {
+    // only animate once the mock is actually on screen
+    new IntersectionObserver((es,obs)=>{
+      if(es[0].isIntersecting){ run(); obs.disconnect(); }
+    },{threshold:.3}).observe(body);
+  }
+})();
 </script>
 </body>
 </html>
