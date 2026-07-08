@@ -106,13 +106,38 @@ nav.scrolled{border-bottom-color:var(--border)}
 .term-cap{font-size:11.5px;color:#8c8578;padding:0 20px 16px;font-family:'JetBrains Mono',monospace}
 @media (prefers-reduced-motion:reduce){.term-body .ln{opacity:1;transform:none}}
 
+/* workspace — desktop file + browser, one reticle moving between them */
+.workspace{position:relative}
+.deskfile{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 10px 26px rgba(25,23,19,.10);margin-bottom:14px}
+.df-bar{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--border);background:#f4f1ea}
+.df-bar .ic{width:15px;height:15px;border-radius:3px;background:#1c7a45;flex:none}
+.df-bar .t{font-family:'JetBrains Mono',monospace;font-size:11px;color:#6b6459}
+.df-bar .badge{margin-left:auto;font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.df-row{display:grid;grid-template-columns:1.1fr 1.5fr 1fr;gap:8px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--text);position:relative}
+.df-head{color:var(--muted);font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:#faf9f5;border-bottom:1px solid var(--border)}
+
 /* browser-mock — the agent visibly reading & filling a real page */
 .browser{background:#fff;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(25,23,19,.18)}
 .b-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid var(--border);background:#f4f1ea}
 .b-bar .c{width:11px;height:11px;border-radius:50%}
 .b-bar .c1{background:#ff5f57}.b-bar .c2{background:#febc2e}.b-bar .c3{background:#28c840}
-.b-url{margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#8c8578;background:#fff;border:1px solid var(--border);border-radius:6px;padding:3px 10px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.b-body{padding:18px 20px 16px;position:relative}
+.b-url{margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#5f594e;background:#fff;border:1px solid var(--border);border-radius:6px;padding:3px 10px;flex:1;white-space:nowrap;overflow:hidden;display:flex;align-items:center;min-height:24px}
+.b-url .caret{height:12px}
+.b-body{padding:18px 20px 16px;position:relative;min-height:318px}
+.b-blank{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:12px;text-align:center;padding:120px 0}
+.b-page{display:none}
+.b-page.on{display:block}
+
+/* captcha widget */
+.cap{display:flex;align-items:center;gap:11px;border:1px solid var(--border);background:#f7f6f2;border-radius:8px;padding:10px 12px;margin:14px 0 4px;position:relative}
+.cap .box{width:20px;height:20px;border:2px solid #b9b1a4;border-radius:4px;background:#fff;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;transition:background .25s,border-color .25s}
+.cap.solved .box{background:#12833b;border-color:#12833b}
+.cap .lbl{font-size:12.5px;color:var(--dim)}
+.cap .mark{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--muted);letter-spacing:.04em}
+.cap .spin{width:16px;height:16px;border:2px solid rgba(201,100,66,.25);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;display:none}
+.cap.solving .spin{display:block}
+.cap.solving .box{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
 .b-title{font-weight:700;font-size:14.5px;margin-bottom:14px;color:var(--text)}
 .fld{margin-bottom:12px;position:relative}
 .fld label{display:block;font-size:11.5px;font-weight:600;color:var(--muted);margin-bottom:4px}
@@ -130,6 +155,8 @@ nav.scrolled{border-bottom-color:var(--border)}
 .scan{position:absolute;border:2px dashed var(--accent);border-radius:10px;pointer-events:none;transition:all .55s cubic-bezier(.4,0,.2,1);box-shadow:0 0 0 4px rgba(201,100,66,.08);opacity:0;z-index:5}
 .scan.on{opacity:1}
 .chip{position:absolute;top:50%;transform:translateY(-50%);right:8px;background:#1d1a15;color:#e8e2d5;font-family:'JetBrains Mono',monospace;font-size:10.5px;padding:4px 9px;border-radius:6px;white-space:nowrap;box-shadow:0 3px 10px rgba(25,23,19,.25)}
+/* over the desktop file, sit above the row so the cell values stay readable */
+.chip.above{top:-31px;right:auto;left:6px;transform:none}
 .chip::before{content:"◉ ";color:#e08a63}
 .b-log{border-top:1px solid var(--border);background:#1d1a15;color:#8fbf7f;font-family:'JetBrains Mono',monospace;font-size:11px;padding:9px 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .b-cap{font-size:11.5px;color:var(--muted);margin-top:10px;font-family:'JetBrains Mono',monospace;text-align:center}
@@ -259,43 +286,45 @@ footer{border-top:1px solid var(--border);padding:34px 0;background:var(--bg)}
       <div class="hero-note">Free workflow audit · No payment until you're convinced · <a href="mailto:jacesabr@gmail.com">jacesabr@gmail.com</a></div>
     </div>
     <div class="rv">
-      <div class="browser">
-        <div class="b-bar">
-          <span class="c c1"></span><span class="c c2"></span><span class="c c3"></span>
-          <span class="b-url">careers.vancouver.ca — application form</span>
+      <div class="workspace" id="ws">
+
+        <!-- the data source sitting on the desktop -->
+        <div class="deskfile">
+          <div class="df-bar"><span class="ic" id="dfIcon"></span><span class="t" id="dfName">invoices-march.xlsx</span><span class="badge">on your desktop</span></div>
+          <div class="df-row df-head" id="dfHead"><span>Invoice</span><span>Supplier email</span><span>Amount</span></div>
+          <div class="df-row" id="dfRow"><span>INV-4471</span><span>billing@acme.co</span><span>$2,480.00</span></div>
         </div>
-        <div class="b-body" id="bBody">
-          <div class="b-title">Candidate Application — Project Manager II</div>
 
-          <div class="fld" data-field="0">
-            <label>Full legal name</label>
-            <div class="inp"><span class="val"></span><span class="caret"></span></div>
-            <span class="done">✓</span>
+        <div class="browser">
+          <div class="b-bar">
+            <span class="c c1"></span><span class="c c2"></span><span class="c c3"></span>
+            <span class="b-url" id="bUrl"><span class="val"></span><span class="caret"></span></span>
           </div>
-          <div class="fld" data-field="1">
-            <label>Email address</label>
-            <div class="inp"><span class="val"></span><span class="caret"></span></div>
-            <span class="done">✓</span>
-          </div>
-          <div class="fld" data-field="2">
-            <label>Have you been convicted of a criminal offence? (screening)</label>
-            <div class="inp"><span class="val"></span><span class="caret"></span></div>
-            <span class="done">✓</span>
-          </div>
-          <div class="fld" data-field="3">
-            <label>Resume</label>
-            <div class="inp"><span class="val"></span><span class="caret"></span></div>
-            <span class="done">✓</span>
-          </div>
+          <div class="b-body" id="bBody">
 
-          <button class="b-submit" id="bSubmit">Submit application</button>
-          <div class="b-success" id="bSuccess">✓ Your application has been sent. Thank you!</div>
+            <div class="b-blank" id="bBlank">new tab</div>
 
-          <div class="scan" id="scan"><span class="chip" id="scanChip">reading page…</span></div>
+            <div class="b-page" id="bPage">
+              <div class="b-title" id="bTitle">Supplier Portal — Submit Invoice</div>
+              <div id="bFields"></div>
+
+              <div class="cap" id="bCap">
+                <span class="box">✓</span><span class="spin"></span>
+                <span class="lbl">I'm not a robot</span>
+                <span class="mark">CAPTCHA</span>
+              </div>
+
+              <button class="b-submit" id="bSubmit">Submit invoice</button>
+              <div class="b-success" id="bSuccess">✓ Invoice submitted successfully.</div>
+            </div>
+
+          </div>
+          <div class="b-log" id="bLog">▸ agent ready</div>
         </div>
-        <div class="b-log" id="bLog">▸ agent ready</div>
+
+        <div class="scan" id="scan"><span class="chip" id="scanChip">reading…</span></div>
       </div>
-      <div class="b-cap">the agent sees the page, decides, and acts — reconstructed from a real July 2026 run</div>
+      <div class="b-cap"><span id="bScenario">accounts payable</span> · one agent, any workflow — a reconstruction of how our agents run</div>
     </div>
   </div>
   <div class="wrap">
@@ -555,98 +584,234 @@ document.querySelectorAll(".term-body").forEach(body=>{
   if(!reduced) setInterval(play,16000);
 });
 
-/* hero browser mock — the agent reads the page, reasons, types, submits.
-   the reticle is positioned over each real field so it reads as vision, not a script. */
+/* hero workspace mock — the agent reads a desktop file, navigates, fills a portal,
+   solves the captcha, and waits for approval. the reticle frames real elements so it
+   reads as vision (screenshot → decide → act), not a script. */
 (function(){
+  const ws      = document.getElementById("ws");
   const body    = document.getElementById("bBody");
   const scan    = document.getElementById("scan");
   const chip    = document.getElementById("scanChip");
   const log     = document.getElementById("bLog");
   const submit  = document.getElementById("bSubmit");
   const success = document.getElementById("bSuccess");
-  if(!body) return;
+  const dfRow   = document.getElementById("dfRow");
+  const bUrl    = document.getElementById("bUrl");
+  const bBlank  = document.getElementById("bBlank");
+  const bPage   = document.getElementById("bPage");
+  const bCap    = document.getElementById("bCap");
+  if(!ws) return;
 
-  const flds = [...body.querySelectorAll(".fld")];
-  const steps = [
-    {think:"reading field: name",            text:"Jace Sabr",                        log:"✓ field read → filled from profile"},
-    {think:"reading field: email",           text:"jace.sabr@coastmail.ca",           log:"✓ verified inbox address used"},
-    {think:"screening question — never fabricate", text:"No",                         log:"✓ answered truthfully from profile data"},
-    {think:"upload control detected",        text:"jace-sabr-resume.pdf",             log:"✓ resume uploaded"}
+  /* three scenarios, cycled — same agent, different work */
+  const SCENES = [
+    {
+      scenario:"accounts payable",
+      file:{name:"invoices-march.xlsx", colour:"#1c7a45", head:["Invoice","Supplier email","Amount"], row:["INV-4471","billing@acme.co","$2,480.00"]},
+      read:"reading invoices-march.xlsx",
+      readLog:"✓ 3 values read from a file on your desktop",
+      url:"supplier-portal.acme.co/invoices/new",
+      openLog:"✓ portal opened — no API, no integration",
+      title:"Supplier Portal — Submit Invoice",
+      fields:[
+        {label:"Invoice number", think:"matching field: invoice number", text:"INV-4471",        log:"✓ filled from your desktop file"},
+        {label:"Supplier email", think:"matching field: supplier email", text:"billing@acme.co", log:"✓ filled from your desktop file"},
+        {label:"Amount",         think:"matching field: amount",         text:"$2,480.00",       log:"✓ value copied exactly — never invented"}
+      ],
+      captcha:true,
+      submit:"Submit invoice",
+      success:"✓ Invoice INV-4471 submitted successfully.",
+      successLog:"✓ confirmation: Invoice INV-4471 submitted successfully."
+    },
+    {
+      scenario:"hotel front desk",
+      file:{name:"guest-call-notes.txt", colour:"#8a5cf6", head:["Reservation","Guest","Change"], row:["#88213","M. Chen","Thu → Sat"]},
+      read:"reading the call notes",
+      readLog:"✓ guest request understood from the call",
+      url:"pms.grandharbour-hotel.com/reservations",
+      openLog:"✓ booking system opened — the screens your staff use",
+      title:"Reservations — Modify Booking",
+      fields:[
+        {label:"Reservation ID",   think:"locating reservation #88213", text:"#88213",            log:"✓ reservation found — 2 nights, Thu check-in"},
+        {label:"New check-in date",think:"checking Saturday availability", text:"Sat 14 March",   log:"✓ rooms free on Saturday — same rate"},
+        {label:"Rate",             think:"holding the guest's original rate", text:"$189/night unchanged", log:"✓ rate preserved — no upcharge"}
+      ],
+      captcha:false,
+      submit:"Update reservation",
+      success:"✓ Reservation #88213 moved to Saturday. Confirmation emailed.",
+      successLog:"✓ reservation updated · confirmation email sent · call logged"
+    },
+    {
+      scenario:"analytics reporting",
+      file:{name:"q1-summary.xlsx", colour:"#0f766e", head:["Quarter","Region","Revenue"], row:["Q1 2026","All","— pending —"]},
+      read:"reading the report template",
+      readLog:"✓ knows which numbers the report needs",
+      url:"analytics.internal.co/dashboard",
+      openLog:"✓ dashboard opened — this tool has no export API",
+      title:"Sales Dashboard — Build Report",
+      fields:[
+        {label:"Date range", think:"setting the reporting period", text:"Jan 1 — Mar 31, 2026", log:"✓ period applied"},
+        {label:"Region",     think:"selecting every region",       text:"All regions",          log:"✓ filter applied"},
+        {label:"Metric",     think:"choosing the metric",          text:"Revenue, net of refunds", log:"✓ 1,284 rows returned"}
+      ],
+      captcha:false,
+      submit:"Run report",
+      success:"✓ Report ready — 1,284 rows. Writing back to your desktop…",
+      successLog:"✓ figures read from the dashboard — writing to q1-summary.xlsx",
+      // this one writes the answer back into the desktop file
+      writeBack:{chip:"writing the result into your file", row:["Q1 2026","All","$1.84M"], log:"✓ q1-summary.xlsx updated on your desktop — every Monday, automatically"}
+    }
   ];
 
   const wait = ms => new Promise(r=>setTimeout(r,ms));
 
   function frame(el){
-    const b = el.getBoundingClientRect(), p = body.getBoundingClientRect();
+    const b = el.getBoundingClientRect(), p = ws.getBoundingClientRect();
     scan.style.top    = (b.top  - p.top  - 6) + "px";
     scan.style.left   = (b.left - p.left - 6) + "px";
     scan.style.width  = (b.width  + 12) + "px";
     scan.style.height = (b.height + 12) + "px";
+    chip.classList.toggle("above", el === dfRow);   // keep the file's cells readable
   }
 
-  function reset(){
+  async function typeInto(el, text, speed){
+    const val = el.querySelector(".val");
+    el.classList.add("typing");
+    for(const ch of text){ val.textContent += ch; await wait(speed); }
+    el.classList.remove("typing");
+  }
+
+  const cells = el => [...el.querySelectorAll("span")];
+
+  /* paint the scene's chrome (file, url bar, page skeleton) in its "before" state */
+  function mount(sc){
     scan.classList.remove("on");
     success.classList.remove("show");
     submit.classList.remove("pressed");
+    bCap.classList.remove("solving","solved");
+    bCap.style.display = sc.captcha ? "" : "none";
+    bPage.classList.remove("on");
+    bBlank.style.display = "";
+    bUrl.querySelector(".val").textContent = "";
     log.textContent = "▸ agent ready";
-    flds.forEach(f=>{
-      f.classList.remove("ok","typing","scanning");
-      f.querySelector(".val").textContent = "";
-    });
+
+    document.getElementById("bScenario").textContent = sc.scenario;
+    document.getElementById("dfName").textContent    = sc.file.name;
+    document.getElementById("dfIcon").style.background = sc.file.colour;
+    cells(document.getElementById("dfHead")).forEach((s,i)=> s.textContent = sc.file.head[i]);
+    cells(dfRow).forEach((s,i)=> s.textContent = sc.file.row[i]);
+
+    document.getElementById("bTitle").textContent = sc.title;
+    submit.textContent  = sc.submit;
+    success.textContent = sc.success;
+
+    document.getElementById("bFields").innerHTML = sc.fields.map(f=>
+      `<div class="fld"><label>${f.label}</label>
+        <div class="inp"><span class="val"></span><span class="caret"></span></div>
+        <span class="done">✓</span></div>`).join("");
+
+    return [...bPage.querySelectorAll(".fld")];
   }
 
-  async function type(fld, text){
-    const val = fld.querySelector(".val");
-    fld.classList.add("typing");
-    for(const ch of text){ val.textContent += ch; await wait(38); }
-    fld.classList.remove("typing");
-    fld.classList.add("ok");
-  }
-
-  async function run(){
-    reset();
+  async function play(sc){
+    const flds = mount(sc);
     await wait(700);
     scan.classList.add("on");
 
-    for(let i=0;i<steps.length;i++){
-      const fld = flds[i], s = steps[i];
-      fld.classList.add("scanning");           // ✓ stays hidden while the reticle is here
+    // 1 — read the source sitting on the desktop
+    frame(dfRow);
+    chip.textContent = sc.read;
+    await wait(1500);
+    log.textContent = sc.readLog;
+    await wait(400);
+
+    // 2 — navigate: type the URL like a person would
+    frame(bUrl);
+    chip.textContent = "navigating";
+    await wait(650);
+    await typeInto(bUrl, sc.url, 32);
+    await wait(320);
+    bBlank.style.display = "none";
+    bPage.classList.add("on");
+    log.textContent = sc.openLog;
+    await wait(600);
+
+    // 3 — work the page, field by field
+    for(let i=0;i<sc.fields.length;i++){
+      const fld = flds[i], f = sc.fields[i];
+      fld.classList.add("scanning");             // ✓ hidden while the reticle is here
       frame(fld);
-      chip.textContent = s.think;              // "reading page" beat
-      await wait(900);
+      chip.textContent = f.think;
+      await wait(800);
       chip.textContent = "typing…";
-      await type(fld, s.text);
-      log.textContent = s.log;
-      await wait(500);
-      fld.classList.remove("scanning");        // reticle moves on → ✓ lands
+      await typeInto(fld, f.text, 36);
+      fld.classList.add("ok");
+      log.textContent = f.log;
+      await wait(400);
+      fld.classList.remove("scanning");
     }
 
+    // 4 — captcha, when the page throws one
+    if(sc.captcha){
+      frame(bCap);
+      chip.textContent = "captcha detected";
+      await wait(800);
+      chip.textContent = "solving…";
+      bCap.classList.add("solving");
+      log.textContent = "▸ captcha challenge — solving";
+      await wait(1700);
+      bCap.classList.remove("solving");
+      bCap.classList.add("solved");
+      log.textContent = "✓ captcha solved — continuing";
+      await wait(700);
+    }
+
+    // 5 — consent gate, then act
     frame(submit);
     chip.textContent = "consent gate — awaiting approval";
     log.textContent  = "⏸ paused — a human must approve before sending";
-    await wait(1800);
+    await wait(1700);
 
-    chip.textContent = "approved → submitting";
+    chip.textContent = "approved";
     submit.classList.add("pressed");
     await wait(600);
-    scan.classList.remove("on");
     submit.classList.remove("pressed");
     success.classList.add("show");
-    log.textContent = '✓ confirmation: "Your application has been sent. Thank you!"';
-    await wait(4200);
-    run();
+    log.textContent = sc.successLog;
+    await wait(1400);
+
+    // 6 — some jobs finish by writing the answer back to your desktop
+    if(sc.writeBack){
+      frame(dfRow);
+      chip.textContent = sc.writeBack.chip;
+      await wait(900);
+      cells(dfRow).forEach((s,i)=> s.textContent = sc.writeBack.row[i]);
+      log.textContent = sc.writeBack.log;
+      await wait(1800);
+    }
+
+    scan.classList.remove("on");
+    await wait(sc.writeBack ? 2200 : 3400);
+  }
+
+  async function loop(){
+    let i = 0;
+    while(true){ await play(SCENES[i]); i = (i + 1) % SCENES.length; }
   }
 
   if(reduced){
-    // static, fully-filled state for reduced-motion users
-    flds.forEach((f,i)=>{ f.querySelector(".val").textContent = steps[i].text; f.classList.add("ok"); });
+    // static, completed state of the first scene
+    const sc = SCENES[0], flds = mount(sc);
+    bUrl.querySelector(".val").textContent = sc.url;
+    bBlank.style.display = "none";
+    bPage.classList.add("on");
+    flds.forEach((f,i)=>{ f.querySelector(".val").textContent = sc.fields[i].text; f.classList.add("ok"); });
+    bCap.classList.add("solved");
     success.classList.add("show");
-    log.textContent = '✓ confirmation: "Your application has been sent. Thank you!"';
+    log.textContent = sc.successLog;
   } else {
-    // only animate once the mock is actually on screen
     new IntersectionObserver((es,obs)=>{
-      if(es[0].isIntersecting){ run(); obs.disconnect(); }
-    },{threshold:.3}).observe(body);
+      if(es[0].isIntersecting){ loop(); obs.disconnect(); }
+    },{threshold:.3}).observe(ws);
   }
 })();
 </script>
